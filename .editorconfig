@@ -223,7 +223,7 @@ dotnet_naming_style.private_field.capitalization = camel_case
 dotnet_diagnostic.SA1400.severity = error
 
 # SA1516: Elements should be separated by blank line
-dotnet_diagnostic.SA1516.severity = error
+dotnet_diagnostic.SA1516.severity = none
 
 # SA1208: System using directives should be placed before other using directives
 dotnet_diagnostic.SA1208.severity = none

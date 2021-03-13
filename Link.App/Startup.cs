@@ -1,13 +1,17 @@
 ﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
+using Link.App.Helpers;
 using Link.App.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Pandora.Utility;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("Link.App.Tests")]
 namespace Link.App
 {
     internal static class Startup
@@ -15,10 +19,6 @@ namespace Link.App
         public static async Task RunAsync()
         {
             using var host = BuildHost();
-
-            var options = host.Services.GetRequiredService<IOptions<AppSettings>>();
-
-            Console.WriteLine(options.Value);
 
             await host.RunAsync();
 
@@ -31,9 +31,15 @@ namespace Link.App
 
                 static void ConfigureServices(HostBuilderContext host, IServiceCollection services)
                 {
-                    services.Configure<AppSettings>(host.Configuration.GetSection("App"));
+                    services
+                        .AddSingleton<IHostLifetimeHelper, HostLifetimeHelper>()
+                        .AddHelpers();
 
-                    services.Configure<ConsoleLifetimeOptions>(o => o.SuppressStatusMessages = true);
+                    services.AddHostedService<AppMonitor>();
+
+                    services
+                        .Configure<AppSettings>(host.Configuration.GetSection("App"))
+                        .Configure<ConsoleLifetimeOptions>(o => o.SuppressStatusMessages = true);
                 }
             }
         }

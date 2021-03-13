@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -19,6 +19,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.1" />
     <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="Pandora.Utility" Version="0.1.0" />
     <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.333">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -36,6 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Link.App\Link.App.csproj" />
+    <ProjectReference Include="..\Link.Tests.Helpers\Link.Tests.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

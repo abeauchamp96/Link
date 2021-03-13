@@ -3,7 +3,7 @@
 
 namespace Link.App.Settings
 {
-    internal sealed record AppSettings
+    public sealed record AppSettings
     {
         public string Name { get; init; } = string.Empty;
 

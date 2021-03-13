@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Link.App": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

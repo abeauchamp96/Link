@@ -51,7 +51,7 @@ namespace Link.App
                 var now = this.dateTimeHelper.GetNow();
 
                 this.logger.LogInformation($"{this.appSettings.Name} [Version {this.appSettings.Version}] is alive! - {now:yyyy-MM-dd HH:mm:ss}");
-                await Task.Delay(delayInMinutes, stoppingToken);
+                await Task.Delay(delayInMinutes, stoppingToken).ConfigureAwait(false);
             }
         }
     }

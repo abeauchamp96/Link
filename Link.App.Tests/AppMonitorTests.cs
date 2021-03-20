@@ -18,8 +18,8 @@ namespace Link.App
 {
     public class AppMonitorTests
     {
-        private readonly Mock<IHostLifetimeHelper> hostLifetimeHelperMock;
-        private readonly Mock<ILogger<AppMonitor>> loggerMock;
+        private readonly Mock<IHostLifetimeHelper> hostLifetimeHelperMock = new();
+        private readonly Mock<ILogger<AppMonitor>> loggerMock = new();
 
         private readonly AppSettings appSettings;
         private readonly DateTime now = new(2021, 03, 13, 17, 20, 00);
@@ -27,9 +27,6 @@ namespace Link.App
 
         public AppMonitorTests()
         {
-            this.hostLifetimeHelperMock = new Mock<IHostLifetimeHelper>();
-            this.loggerMock = new Mock<ILogger<AppMonitor>>();
-
             this.appSettings = new AppSettings { Name = "Ghost", Version = "0.1.0" };
 
             Mock<IOptions<AppSettings>> appSettingsMock = new();

@@ -44,7 +44,7 @@ namespace Link.App
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var delayInMinutes = TimeSpan.FromMinutes(1.0);
+            var delayInMinutes = TimeSpan.FromMinutes(1);
 
             while (!stoppingToken.IsCancellationRequested)
             {

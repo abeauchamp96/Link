@@ -36,7 +36,7 @@ namespace Link.Discord.Bots.Tests
             { DiscordLogLevel.Error, LogSeverity.Error },
             { DiscordLogLevel.Info, LogSeverity.Info },
             { DiscordLogLevel.Verbose, LogSeverity.Verbose },
-            { DiscordLogLevel.Warning, LogSeverity.Warning },
+            { DiscordLogLevel.Warning, LogSeverity.Warning }
         };
     }
 }

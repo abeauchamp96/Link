@@ -4,7 +4,7 @@
 using Discord.Commands;
 using Link.Discord.Bots.Models;
 
-namespace Link.Discord.Bots
+namespace Link.Discord.Bots.Mappers
 {
     internal static class DiscordCommandRunModeMapper
     {

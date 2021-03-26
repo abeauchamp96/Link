@@ -6,7 +6,7 @@ using FluentAssertions;
 using Link.Discord.Bots.Models;
 using Xunit;
 
-namespace Link.Discord.Bots.Tests
+namespace Link.Discord.Bots.Mappers
 {
     public class DiscordLogLevelMapperTests
     {

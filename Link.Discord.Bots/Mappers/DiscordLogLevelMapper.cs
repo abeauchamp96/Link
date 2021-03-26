@@ -2,8 +2,9 @@
 // Licensed under the MIT license.
 
 using Discord;
+using Link.Discord.Bots.Models;
 
-namespace Link.Discord.Bots.Models
+namespace Link.Discord.Bots.Mappers
 {
     internal static class DiscordLogLevelMapper
     {

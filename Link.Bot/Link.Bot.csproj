@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Link.Discord.Bots\Link.Discord.Bots.csproj" />
+  </ItemGroup>
+
 </Project>

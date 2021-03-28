@@ -12,11 +12,11 @@ namespace Link.Discord.Bots.Mappers
     {
         [Theory]
         [MemberData(nameof(GetDiscordLogLevels))]
-        public void ToLogLevel_ShouldConvertTheModel(DiscordLogLevel discordLogLevel, LogSeverity logSeverity)
+        public void ToLogLevel_ShouldConvertTheModel(DiscordLogLevel discordLogLevel, LogSeverity expectedLogSeverity)
         {
             var logLevel = discordLogLevel.ToLogLevel();
 
-            logLevel.Should().Be(logSeverity);
+            logLevel.Should().Be(expectedLogSeverity);
         }
 
         [Fact]

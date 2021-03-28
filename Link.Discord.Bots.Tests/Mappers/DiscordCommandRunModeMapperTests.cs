@@ -12,11 +12,11 @@ namespace Link.Discord.Bots.Mappers
     {
         [Theory]
         [MemberData(nameof(GetDiscordCommandRunModes))]
-        public void ToRunMode_ShouldConvertTheModel(DiscordCommandRunMode discordCommandRunMode, RunMode commandRunMode)
+        public void ToRunMode_ShouldConvertTheModel(DiscordCommandRunMode discordCommandRunMode, RunMode expectedCommandRunMode)
         {
             var mode = discordCommandRunMode.ToRunMode();
 
-            mode.Should().Be(commandRunMode);
+            mode.Should().Be(expectedCommandRunMode);
         }
 
         [Fact]

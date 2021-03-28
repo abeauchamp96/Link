@@ -3,6 +3,8 @@
 
 using Link.App.Helpers;
 using Link.App.Settings;
+using Link.Bot;
+using Link.Discord.Bots;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -33,6 +35,8 @@ namespace Link.App
                 {
                     services
                         .AddSingleton<IHostLifetimeHelper, HostLifetimeHelper>()
+                        .AddDiscord(host.Configuration.GetSection("Discord"))
+                        .AddBot(host.Configuration.GetSection("Bot"))
                         .AddHelpers();
 
                     services.AddHostedService<AppMonitor>();

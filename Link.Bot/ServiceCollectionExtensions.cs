@@ -11,10 +11,11 @@ namespace Link.Bot
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection ConfigureBot(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddBot(this IServiceCollection services, IConfiguration configuration)
         {
             return services
                 .Configure<BotSettings>(configuration)
+                .AddHostedService<BotRunner>()
                 .AddSingleton<IUptime>(s => new BotUptime(DateTimeOffset.Now))
                 .AddTransient<IUptimeRetriever, UptimeRetriever>();
         }

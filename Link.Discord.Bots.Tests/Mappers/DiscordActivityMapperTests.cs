@@ -18,7 +18,7 @@ namespace Link.Discord.Bots.Mappers
                 Details = "Some details"
             };
 
-            var activity = model.ToActivity();
+            var activity = model.ToGameActivity();
 
             activity.Name.Should().Be(model.Name);
             activity.Type.Should().Be(ActivityType.Playing);

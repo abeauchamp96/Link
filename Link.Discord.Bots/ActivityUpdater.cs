@@ -15,6 +15,6 @@ namespace Link.Discord.Bots
             => this.discordSocketClient = discordSocketClient;
 
         public Task UpdateActivityAsync(DiscordActivity discordActivity)
-            => this.discordSocketClient.SetActivityAsync(discordActivity.ToActivity());
+            => this.discordSocketClient.SetActivityAsync(discordActivity.ToGameActivity());
     }
 }

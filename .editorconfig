@@ -80,7 +80,7 @@ csharp_style_expression_bodied_constructors = true
 csharp_style_expression_bodied_indexers = true
 csharp_style_expression_bodied_lambdas = true
 csharp_style_expression_bodied_local_functions = true
-csharp_style_expression_bodied_methods = when_on_single_line
+csharp_style_expression_bodied_methods =true:silent
 csharp_style_expression_bodied_operators = true
 csharp_style_expression_bodied_properties = true
 
@@ -234,8 +234,29 @@ dotnet_diagnostic.SA1413.severity = none
 # SA1116: Split parameters should start on line after declaration
 dotnet_diagnostic.SA1116.severity = none
 
-# IDE0022: Use expression body for methods
-dotnet_diagnostic.IDE0022.severity = suggestion
+# SA0001: XML comment analysis is disabled due to project configuration
+dotnet_diagnostic.SA0001.severity = none
 
-# SA1503: Braces should not be omitted
+# IDE0022: Use expression body for methods
+dotnet_diagnostic.IDE0022.severity = silent
+
+# SA1128: constructor initializers should be on their own line
+dotnet_diagnostic.SA1128.severity = none
+
+# SA1503: Brace should not be omitted
 dotnet_diagnostic.SA1503.severity = none
+
+# CA1816: Dispose methods should call SuppressFinalize
+dotnet_diagnostic.CA1816.severity = warning
+
+# IDE0082: 'typeof' can be converted  to 'nameof'
+dotnet_diagnostic.IDE0082.severity = warning
+
+# IDE1006: Naming Styles
+dotnet_diagnostic.IDE1006.severity = none
+
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
+
+# IDE0005: Using directive is unnecessary.
+dotnet_diagnostic.IDE0005.severity = warning

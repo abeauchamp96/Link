@@ -1,7 +1,7 @@
 // Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
-using Link.Bot.Extensions;
+using Link.Server.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

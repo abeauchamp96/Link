@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using System.IO;
 
-namespace Link.Bot.Extensions
+namespace Link.Server.Extensions
 {
     internal static class HostBuilderExtensions
     {

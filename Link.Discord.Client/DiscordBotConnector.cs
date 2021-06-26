@@ -4,6 +4,7 @@
 using Discord;
 using Discord.WebSocket;
 using Link.Bot;
+using Link.Bot.Settings;
 using Link.Discord.Client.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -26,7 +27,7 @@ namespace Link.Discord.Client
             this.discordSettings = discordSettings.Value;
             this.botSettings = botSettings.Value;
 
-            this.discordSocketClient.Log += this.Log;
+            this.discordSocketClient.Ready += this.Ready;
             this.discordSocketClient.Connected += this.Connected;
             this.discordSocketClient.Disconnected += this.Disconnected;
         }
@@ -40,7 +41,7 @@ namespace Link.Discord.Client
             _ => throw new InvalidOperationException()
         };
 
-        public async Task Connect()
+        public async Task ConnectAsync()
         {
             if (this.discordSocketClient.LoginState == LoginState.LoggedOut)
                 await this.discordSocketClient.LoginAsync(TokenType.Bot, this.discordSettings.Token).ConfigureAwait(false);
@@ -49,25 +50,25 @@ namespace Link.Discord.Client
                 await this.discordSocketClient.StartAsync().ConfigureAwait(false);
         }
 
-        public async Task Disconnect()
+        public async Task DisconnectAsync()
         {
-            if (this.discordSocketClient.LoginState == LoginState.LoggedOut)
+            if (this.discordSocketClient.LoginState == LoginState.LoggedIn)
                 await this.discordSocketClient.LogoutAsync().ConfigureAwait(false);
 
-            if (this.discordSocketClient.ConnectionState == ConnectionState.Disconnected)
+            if (this.discordSocketClient.ConnectionState == ConnectionState.Connected)
                 await this.discordSocketClient.StopAsync().ConfigureAwait(false);
         }
 
         public void Dispose()
         {
-            this.discordSocketClient.Log -= this.Log;
+            this.discordSocketClient.Ready -= this.Ready;
             this.discordSocketClient.Connected -= this.Connected;
             this.discordSocketClient.Disconnected -= this.Disconnected;
         }
 
-        private Task Log(LogMessage logMessage)
+        private Task Ready()
         {
-            this.logger.LogInformation(logMessage.Message);
+            this.logger.LogInformation($"{this.GetName()} is ready");
             return Task.CompletedTask;
         }
 

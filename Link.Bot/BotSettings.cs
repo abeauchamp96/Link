@@ -8,7 +8,6 @@ namespace Link.Bot
     public record BotSettings
     {
         public string Name { get; init; } = string.Empty;
-        public string Token { get; init; } = string.Empty;
         public string Version { get; init; } = string.Empty;
         public Uri? ProjectUrl { get; init; }
     }

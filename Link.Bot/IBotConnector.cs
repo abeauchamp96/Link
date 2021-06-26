@@ -9,7 +9,7 @@ namespace Link.Bot
     {
         BotConnectionState State { get; }
 
-        Task Connect();
-        Task Disconnect();
+        Task ConnectAsync();
+        Task DisconnectAsync();
     }
 }

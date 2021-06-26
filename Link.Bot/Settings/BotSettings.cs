@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Link.Bot
+namespace Link.Bot.Settings
 {
     public record BotSettings
     {

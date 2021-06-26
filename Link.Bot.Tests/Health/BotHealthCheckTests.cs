@@ -2,13 +2,14 @@
 // Licensed under the MIT license.
 
 using FluentAssertions;
+using Link.Bot.Settings;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Moq;
 using Pandora.TestKit.Mocks;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Link.Bot
+namespace Link.Bot.Health
 {
     public class BotHealthCheckTests
     {

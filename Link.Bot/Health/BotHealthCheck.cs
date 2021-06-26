@@ -1,14 +1,15 @@
 ﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
+using Link.Bot.Settings;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Link.Bot
+namespace Link.Bot.Health
 {
-    public class BotHealthCheck : IHealthCheck
+    internal class BotHealthCheck : IHealthCheck
     {
         private readonly IBotConnector botConnector;
         private readonly BotSettings botSettings;

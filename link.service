@@ -1,0 +1,16 @@
+[Unit]
+Description=Link - The brave bot
+After=network-online.target
+
+[Service]
+Type=notify
+Environment=DOTNET_ENVIRONMENT={{environment}}
+User={{user}}
+Restart=always
+RestartSec=30
+KillSignal=SIGINT
+WorkingDirectory={{linkDirectory}}
+ExecStart={{linkDirectory}}/Link.Server
+
+[Install]
+WantedBy=multi-user.target

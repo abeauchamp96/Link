@@ -1,12 +1,13 @@
 ﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
+using System;
 using System.Threading.Tasks;
 
-namespace Link.App
+namespace Link.Bot.Helpers
 {
-    internal sealed class Program
+    public interface IDelayHelper
     {
-        private static async Task Main() => await Startup.RunAsync();
+        Task DelayAsync(TimeSpan delay);
     }
 }

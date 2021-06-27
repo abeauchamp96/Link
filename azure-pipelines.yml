@@ -1,0 +1,121 @@
+name: $(Build.DefinitionName).$(Build.SourceBranchName).$(Date:yyyyMMdd).$(Rev:r)
+
+pool:
+  name: 'Hyrule'
+  demands:
+    - agent.os -equals Windows_NT
+pr:
+- develop
+- main
+
+trigger:
+- develop
+- main
+
+variables:
+  environment: Staging
+  ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
+    environment: Production
+  artifact: 'link'
+  configuration: '--configuration Release'
+  linkDirectory: $[lower(format('/home/{0}/{1}/{2}', variables['user'], variables['artifact'], variables['environment']))]
+  service: $[lower(format('link.{0}.service', variables['environment']))]
+  zippedArtifact: $(artifact).tar.gz
+
+stages:
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: Build_Link
+      displayName: 'Build Link'
+      variables:
+        projectsPath: '**/*.csproj'
+      steps:
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore packages'
+          inputs:
+            command: restore
+            projects: $(projectsPath)
+            feedsToUse: select
+            vstsFeed: '1ef4c0cf-1819-4ee1-8807-d43cd89c12fe/ddbe434d-9f4f-404b-8ac2-fd37fda6529e'
+        - task: DotNetCoreCLI@2
+          displayName: 'Compile the solution'
+          inputs:
+            command: build
+            projects: $(projectsPath)
+            arguments: $(configuration)
+        - task: DotNetCoreCLI@2
+          displayName: 'Run unit tests'
+          inputs:
+            command: test
+            projects: '**/*.Tests.csproj'
+            arguments: '$(configuration) --no-build --collect:"XPlat Code Coverage"'
+        - task: reportgenerator@4
+          displayName: 'Generate the report'
+          inputs:
+            reports: '$(Agent.TempDirectory)/**/coverage.*.xml'
+            targetdir: reports
+            reporttypes: Cobertura
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage'
+          inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: '$(Build.SourcesDirectory)/**/Cobertura.xml'
+
+- stage: Package
+  condition: and(succeeded(), in(variables['Build.SourceBranchName'], 'develop', 'main'))
+  dependsOn: Build
+  displayName: 'Package'
+  jobs:
+    - job: Package_Link
+      displayName: 'Package Link'
+      steps:
+        - task: replacetokens@4
+          displayName: 'Configure Link settings'
+          inputs:
+            targetFiles: |
+              **/link.service => $(Build.ArtifactStagingDirectory)/$(service)
+              **/appsettings.$(environment).json
+            encoding: 'auto'
+            tokenPattern: 'doublebraces'
+            writeBOM: true
+            actionOnMissing: 'warn'
+            keepToken: true
+            useLegacyPattern: false
+            enableTransforms: false
+            enableTelemetry: false
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish Link'
+          inputs:
+            command: publish
+            publishWebProjects: false
+            projects: '*.Server/*.csproj'
+            arguments: '$(configuration) -r linux-arm64 -o $(Build.BinariesDirectory) -p:PublishSingleFile=true -p:PublishTrimmed=true'
+            zipAfterPublish: false
+            modifyOutputPath: false
+        - task: ArchiveFiles@2
+          displayName: 'Archive the artifact'
+          inputs:
+            rootFolderOrFile: $(Build.BinariesDirectory)
+            includeRootFolder: false
+            archiveType: tar
+            archiveFile: $(Build.ArtifactStagingDirectory)/$(zippedArtifact)
+            replaceExistingArchive: true
+        - publish: $(Build.ArtifactStagingDirectory)
+          displayName: 'Publish the artifact'
+          artifact: $(artifact)
+
+- stage: Deploy
+  displayName: 'Deploy'
+  condition: and(succeeded(), in(variables['Build.SourceBranchName'], 'develop', 'main'))
+  dependsOn:
+    - Build
+    - Package
+  jobs:
+    - template: jobs/deploy.yml
+      parameters:
+        artifact: $(artifact)
+        environment: $(environment)
+        zippedArtifact: $(Pipeline.Workspace)/$(zippedArtifact)
+        service: $(service)
+        linkDirectory: $(linkDirectory)

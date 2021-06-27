@@ -113,7 +113,7 @@ stages:
     - Build
     - Package
   jobs:
-    - template: deploy.yml
+    - template: jobs/deploy.yml
       parameters:
         artifact: $(artifact)
         environment: $(environment)

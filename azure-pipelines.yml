@@ -113,37 +113,10 @@ stages:
     - Build
     - Package
   jobs:
-    - deployment: DeployLink
-      displayName: 'Deploy Link'
-      variables:
-        artifactToBeExtracted: '$(Pipeline.Workspace)/$(zippedArtifact)'
-      pool:
-        name: 'Hyrule'
-        demands:
-          - agent.os -equals Linux
-        ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
-          environment: Staging
-        ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
-          environment: Production
-      strategy:
-        runOnce:
-          deploy:
-            steps:
-            - download: current
-              displayName: 'Download the artifact'
-              artifact: $(artifact)
-            - task: Bash@3
-              displayName: 'Stop the service'
-              inputs:
-                targetType: inline
-                script: 'systemctl is-active --quiet $(service) && sudo systemctl stop $(service) | echo Stop the service'
-            - task: Bash@3
-              displayName: 'Extract the artifact'
-              inputs:
-                targetType: inline
-                script: 'mkdir -p $(linkDirectory) && tar -zxf $(artifactToBeExtracted) -C $(linkDirectory) && rm $(artifactToBeExtracted)'
-            - task: Bash@3
-              displayName: 'Gives permissions'
-              inputs:
-                targetType: inline
-                script: 'sudo chown -R $(user) $(linkDirectory) && sudo chmod u+x $(linkDirectory)/Link.Server'
+    - template: templates/deploy.yml
+      parameters:
+        artifact: $(artifact)
+        environment: $(environment)
+        zippedArtifact: $(Pipeline.Workspace)/$(zippedArtifact)
+        service: $(service)
+        linkDirectory: $(linkDirectory)

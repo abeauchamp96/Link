@@ -1,0 +1,43 @@
+parameters:
+  - name: artifact
+    type: string
+  - name: environment
+    type: string
+  - name: zippedArtifact
+    type: string
+  - name: service
+    type: string
+  - name: linkDirectory
+    type: string
+
+jobs:
+  - template: templates/deploy.yml
+  - deployment: DeployLink
+    displayName: 'Deploy Link'
+    pool:
+      name: 'Hyrule'
+      demands:
+        - agent.os -equals Linux
+      environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            displayName: 'Download the artifact'
+            artifact: ${{ parameters.artifact }}
+          - task: Bash@3
+            displayName: 'Stop the service'
+            inputs:
+              targetType: inline
+              script: 'systemctl is-active --quiet ${{ parameters.service }} && sudo systemctl stop ${{ parameters.service }} | echo Stop the service'
+          - task: Bash@3
+            displayName: 'Extract the artifact'
+            inputs:
+              targetType: inline
+              script: 'mkdir -p ${{ parameters.linkDirectory }} && tar -zxf ${{ parameters.zippedArtifact }} -C ${{ parameters.linkDirectory }} && rm ${{ parameters.zippedArtifact }}'
+          - task: Bash@3
+            displayName: 'Gives permissions'
+            inputs:
+              targetType: inline
+              script: 'sudo chown -R $(user) ${{ parameters.linkDirectory }} && sudo chmod u+x ${{ parameters.linkDirectory }}/Link.Server'

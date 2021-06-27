@@ -121,7 +121,7 @@ stages:
         name: 'Hyrule'
         demands:
           - agent.os -equals Linux
-      environment: $(environment)
+      environment: ${{ variables.environment }}
       strategy:
         runOnce:
           deploy:

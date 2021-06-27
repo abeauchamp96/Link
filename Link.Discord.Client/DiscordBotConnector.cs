@@ -66,10 +66,20 @@ namespace Link.Discord.Client
             this.discordSocketClient.Disconnected -= this.Disconnected;
         }
 
-        private Task Ready()
+        private async Task Ready()
         {
             this.logger.LogInformation($"{this.GetName()} is ready");
-            return Task.CompletedTask;
+
+            if (this.discordSettings.Activity is null)
+                return;
+
+            await this.discordSocketClient.SetActivityAsync(GetActivity());
+
+            IActivity GetActivity()
+            {
+                var activity = this.discordSettings.Activity;
+                return new Game(activity.Name, activity.Type);
+            }
         }
 
         private Task Connected()

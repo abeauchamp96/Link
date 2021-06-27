@@ -26,14 +26,14 @@ stages:
           displayName: 'Restore packages'
           inputs:
             command: restore
-            projects: $(projectPath)
+            projects: $(projectsPath)
             feedsToUse: select
             vstsFeed: '1ef4c0cf-1819-4ee1-8807-d43cd89c12fe/ddbe434d-9f4f-404b-8ac2-fd37fda6529e'
         - task: DotNetCoreCLI@2
           displayName: 'Compile the solution'
           inputs:
             command: build
-            projects: $(projectPath)
+            projects: $(projectsPath)
             arguments: $(configuration)
         - task: DotNetCoreCLI@2
           displayName: 'Run unit tests'

@@ -18,6 +18,7 @@ variables:
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: Production
   artifact: 'link'
+  configuration: '--configuration Release'
 
 stages:
 - stage: Build
@@ -27,7 +28,6 @@ stages:
       displayName: 'Build Link'
       variables:
         projectsPath: '**/*.csproj'
-        configuration: '--configuration Release'
       steps:
         - task: DotNetCoreCLI@2
           displayName: 'Restore packages'
@@ -71,7 +71,7 @@ stages:
       variables: 
         linkDirectory: $[lower(format('/home/{0}/{1}/{2}', variables['user'], variables['artifact'], variables['environment']))]
         service: $[lower(format('link.{0}.service', variables['environment']))]
-        binaries: $(artifact).tar.gz
+        zippedArtifact: $(artifact).tar.gz
       steps:
         - task: replacetokens@4
           displayName: 'Configure Link settings'
@@ -87,3 +87,23 @@ stages:
             useLegacyPattern: false
             enableTransforms: false
             enableTelemetry: false
+        - task: DotNetCoreCLI@2
+          displayName: 'Publish Link'
+          inputs:
+            command: publish
+            publishWebProjects: false
+            projects: '*.Server/*.csproj'
+            arguments: '$(configuration) -r linux-arm64 -o $(Build.BinariesDirectory) -p:PublishSingleFile=true -p:PublishTrimmed=true'
+            zipAfterPublish: false
+            modifyOutputPath: false
+        - task: ArchiveFiles@2
+          displayName: 'Archive the artifact'
+          inputs:
+            rootFolderOrFile: $(Build.BinariesDirectory)
+            includeRootFolder: false
+            archiveType: tar
+            archiveFile: $(Build.ArtifactStagingDirectory)/$(zippedArtifact)
+            replaceExistingArchive: true
+        - publish: $(Build.ArtifactStagingDirectory)
+          displayName: 'Publish the artifact'
+          artifact: $(artifact)

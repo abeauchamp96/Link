@@ -13,8 +13,8 @@ trigger:
 - main
 
 variables:
-  #${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
-  environment: Staging
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
+    environment: Staging
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: Production
   artifact: 'link'
@@ -61,8 +61,7 @@ stages:
               summaryFileLocation: '$(Build.SourcesDirectory)/**/Cobertura.xml'
 
 - stage: Package
-  condition: succeeded()
-  #condition: and(succeeded(), in(variables['Build.SourceBranchName'], 'develop', 'main'))
+  condition: and(succeeded(), in(variables['Build.SourceBranchName'], 'develop', 'main'))
   dependsOn: Build
   displayName: 'Package'
   jobs:

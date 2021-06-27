@@ -12,6 +12,13 @@ trigger:
 - develop
 - main
 
+variables:
+  ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
+    environment: Staging
+  ${{ if eq(variables['Build.SourceBranchName'], 'master')}}:
+    environment: Production
+  artifact: 'link'
+
 stages:
 - stage: Build
   displayName: 'Build'
@@ -52,3 +59,31 @@ stages:
           inputs:
               codeCoverageTool: Cobertura
               summaryFileLocation: '$(Build.SourcesDirectory)/**/Cobertura.xml'
+
+- stage: Package
+  condition: succeeded()
+  #condition: and(succeeded(), in(variables['Build.SourceBranchName'], 'develop', 'main'))
+  dependsOn: Build
+  displayName: 'Package'
+  jobs:
+    - job: Package_Link
+      displayName: 'Package Link'
+      variables: 
+        linkDirectory: $/home/$(user)/$(artifact)/$[lower(variables['environment'])]
+        service: $(Build.ArtifactStagingDirectory)/$[lower(format('link.{0}.service', variables['environment']))]
+        binaries: $(artifact).tar.gz
+      steps:
+        - task: replacetokens@4
+          displayName: 'Configure Link settings'
+          inputs:
+            targetFiles: |
+              **/link.service => $(service)
+              **/appsettings.$(environment).json
+            encoding: 'auto'
+            tokenPattern: 'doublebraces'
+            writeBOM: true
+            actionOnMissing: 'warn'
+            keepToken: true
+            useLegacyPattern: false
+            enableTransforms: false
+            enableTelemetry: false

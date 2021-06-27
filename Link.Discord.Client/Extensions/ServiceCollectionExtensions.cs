@@ -16,7 +16,7 @@ namespace Link.Discord.Client.Extensions
             return services
                 .Configure<DiscordSettings>(configuration)
                 .ConfigureDiscordClient(configuration)
-                .AddTransient<IBotConnector, DiscordBotConnector>();
+                .AddSingleton<IBotConnector, DiscordBotConnector>();
         }
 
         private static IServiceCollection ConfigureDiscordClient(this IServiceCollection services, IConfiguration configuration)

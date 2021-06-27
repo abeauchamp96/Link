@@ -10,5 +10,6 @@ namespace Link.Bot.Settings
         public string Name { get; init; } = string.Empty;
         public string Version { get; init; } = string.Empty;
         public Uri? ProjectUrl { get; init; }
+        public int RetryAttemptInSeconds { get; init; }
     }
 }

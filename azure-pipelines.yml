@@ -13,7 +13,6 @@ trigger:
 - main
 
 variables:
-  environment: 'Development'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
     environment: Staging
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
@@ -122,7 +121,10 @@ stages:
         name: 'Hyrule'
         demands:
           - agent.os -equals Linux
-      environment: ${{ variables.environment }}
+        ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
+          environment: Staging
+        ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
+          environment: Production
       strategy:
         runOnce:
           deploy:

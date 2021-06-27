@@ -116,6 +116,6 @@ stages:
       parameters:
         artifact: $(artifact)
         environment: $(environment)
-        zippedArtifact: $(Pipeline.Workspace)/$(zippedArtifact)
+        zippedArtifact: $(Pipeline.Workspace)/$(artifact)/$(zippedArtifact)
         service: $(service)
         linkDirectory: $(linkDirectory)

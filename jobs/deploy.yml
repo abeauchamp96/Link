@@ -29,14 +29,14 @@ jobs:
             displayName: 'Stop the service'
             inputs:
               targetType: inline
-              
+              script: 'sudo systemctl is-active --quiet ${{ parameters.service }} && sudo systemctl stop ${{ parameters.service }}'
           - task: Bash@3
             displayName: 'Extract the artifact'
             inputs:
               targetType: inline
               script: 'mkdir -p ${{ parameters.linkDirectory }} && tar -zxf ${{ parameters.zippedArtifact }} -C ${{ parameters.linkDirectory }} && rm ${{ parameters.zippedArtifact }}'
           - task: Bash@3
-            displayName: 'Gives permissions'
+            displayName: 'Transform project as Executable'
             inputs:
               targetType: inline
-              script: 'sudo chown -R $(user) ${{ parameters.linkDirectory }} && sudo chmod u+x ${{ parameters.linkDirectory }}/Link.Server'
+              script: 'chmod u+x ${{ parameters.linkDirectory }}/Link.Server'

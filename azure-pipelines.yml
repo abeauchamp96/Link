@@ -40,13 +40,13 @@ stages:
           inputs:
             command: test
             projects: '**/*.Tests.csproj'
-            arguments: '$(configuration) --no-build --collect:"XPlat COde Coverage"'
+            arguments: '$(configuration) --no-build --collect:"XPlat Code Coverage"'
         - task: reportgenerator@4
           displayName: 'Generate the report'
           inputs:
             reports: '$(Agent.TempDirectory)/**/coverage.*.xml'
             targetdir: reports
-            reporttypes: Covertura
+            reporttypes: Cobertura
         - task: PublishCodeCoverageResults@1
           displayName: 'Publish code coverage'
           inputs:

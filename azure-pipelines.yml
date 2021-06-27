@@ -69,8 +69,8 @@ stages:
     - job: Package_Link
       displayName: 'Package Link'
       variables: 
-        linkDirectory: $/home/$(user)/$(artifact)/$[lower(variables['environment'])]
-        service: $(Build.ArtifactStagingDirectory)/$[lower(format('link.{0}.service', variables['environment']))]
+        linkDirectory: $[/home/$(user)/$(artifact)/lower(variables['environment'])]
+        service: $[$(Build.ArtifactStagingDirectory)/lower(format('link.{0}.service', variables['environment']))]
         binaries: $(artifact).tar.gz
       steps:
         - task: replacetokens@4

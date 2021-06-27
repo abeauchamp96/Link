@@ -51,4 +51,4 @@ stages:
           displayName: 'Publish code coverage'
           inputs:
               codeCoverageTool: Cobertura
-              summaryFileLocation: '$(Build.SourcesDirectory)/**/Covertura.xml'
+              summaryFileLocation: '$(Build.SourcesDirectory)/**/Cobertura.xml'

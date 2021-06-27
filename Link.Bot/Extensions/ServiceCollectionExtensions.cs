@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Link.Bot.Health;
+using Link.Bot.Helpers;
 using Link.Bot.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ namespace Link.Bot.Extensions
 
             return services
                 .Configure<BotSettings>(configuration)
+                .AddTransient<IDelayHelper, DelayHelper>()
                 .AddHostedService<BotRunner>();
         }
     }

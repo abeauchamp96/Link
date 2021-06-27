@@ -1,0 +1,54 @@
+name: $(Build.DefinitionName).$(Build.SourceBranchName).$(Date:yyyyMMdd).$(Rev:r)
+
+pool:
+  name: 'Hyrule'
+  demands:
+    - agent.os -equals Windows_NT
+pr:
+- develop
+- main
+
+trigger:
+- develop
+- main
+
+stages:
+- stage: Build
+  displayName: 'Build'
+  jobs:
+    - job: Build_Link
+      displayName: 'Build Link'
+      variables:
+        projectsPath: '**/*.csproj'
+        configuration: '--configuration Release'
+      steps:
+        - task: DotNetCoreCLI@2
+          displayName: 'Restore packages'
+          inputs:
+            command: restore
+            projects: $(projectPath)
+            feedsToUse: select
+            vstsFeed: '1ef4c0cf-1819-4ee1-8807-d43cd89c12fe/ddbe434d-9f4f-404b-8ac2-fd37fda6529e'
+        - task: DotNetCoreCLI@2
+          displayName: 'Compile the solution'
+          inputs:
+            command: build
+            projects: $(projectPath)
+            arguments: $(configuration)
+        - task: DotNetCoreCLI@2
+          displayName: 'Run unit tests'
+          inputs:
+            command: test
+            projects: '**/*.Tests.csproj'
+            arguments: '$(configuration) --no-build --collect:"XPlat COde Coverage"'
+        - task: reportgenerator@4
+          displayName: 'Generate the report'
+          inputs:
+            reports: '$(Agent.TempDirectory)/**/coverage.*.xml'
+            targetdir: reports
+            reporttypes: Covertura
+        - task: PublishCodeCoverageResults@1
+          displayName: 'Publish code coverage'
+          inputs:
+              codeCoverageTool: Cobertura
+              summaryFileLocation: '$(Build.SourcesDirectory)/**/Covertura.xml'

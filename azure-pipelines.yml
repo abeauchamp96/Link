@@ -69,15 +69,15 @@ stages:
     - job: Package_Link
       displayName: 'Package Link'
       variables: 
-        linkDirectory: $[/home/variables['user']/variables['artifact']/lower(variables['environment'])]
-        service: $[variables['Build.ArtifactStagingDirectory']/lower(format('link.{0}.service', variables['environment']))]
+        linkDirectory: $[lower(format('/home/{0}/{1}/{2}', variables['user'], variables['artifact'], variables['environment']))]
+        service: $[lower(format('link.{0}.service', variables['environment']))]
         binaries: $(artifact).tar.gz
       steps:
         - task: replacetokens@4
           displayName: 'Configure Link settings'
           inputs:
             targetFiles: |
-              **/link.service => $(service)
+              **/link.service => $(Build.ArtifactStagingDirectory)/$(service)
               **/appsettings.$(environment).json
             encoding: 'auto'
             tokenPattern: 'doublebraces'

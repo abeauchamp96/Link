@@ -14,7 +14,7 @@ trigger:
 
 variables:
   #${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
-    environment: Staging
+  environment: Staging
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: Production
   artifact: 'link'

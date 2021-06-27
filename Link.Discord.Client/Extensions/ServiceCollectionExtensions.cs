@@ -6,6 +6,7 @@ using Link.Bot;
 using Link.Discord.Client.Settings;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Pandora.Utility;
 
 namespace Link.Discord.Client.Extensions
 {
@@ -16,6 +17,7 @@ namespace Link.Discord.Client.Extensions
             return services
                 .Configure<DiscordSettings>(configuration)
                 .ConfigureDiscordClient(configuration)
+                .AddUptime<DiscordBotUptime>()
                 .AddSingleton<IBotConnector, DiscordBotConnector>();
         }
 

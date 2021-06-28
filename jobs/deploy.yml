@@ -9,6 +9,8 @@ parameters:
     type: string
   - name: linkDirectory
     type: string
+  - name: servicePath
+    type: string
 
 jobs:
   - deployment: DeployLink
@@ -29,7 +31,7 @@ jobs:
             displayName: 'Stop the service'
             inputs:
               targetType: inline
-              script: test -f /etc/systemd/system/${{ parameters.service }} && sudo systemctl stop ${{ parameters.service }}
+              script: '[ -f /etc/systemd/system/${{ parameters.service }} ] 2> dev/null && sudo systemctl stop ${{ parameters.service }}'
           - task: Bash@3
             displayName: 'Extract the artifact'
             inputs:
@@ -40,3 +42,13 @@ jobs:
             inputs:
               targetType: inline
               script: 'chmod u+x ${{ parameters.linkDirectory }}/Link.Server'
+          - task: Bash@3
+            displayName: 'Move the service'
+            inputs:
+              targetType: inline
+              script: 'mv -f ${{ parameters.servicePath }} /etc/systemd/system/${{ parameters.service }} && sudo systemctl daemon-reload'
+          - task: Bash@3
+            displayName: 'Start the service'
+            inputs:
+              targetType: inline
+              script: 'sudo systemctl --quiet enable ${{ parameters.service }} && sudo start ${{ parameters.service }}'

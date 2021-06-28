@@ -47,7 +47,7 @@ jobs:
             displayName: 'Move the service'
             inputs:
               targetType: inline
-              script: 'mv -f ${{ parameters.servicePath }} /etc/systemd/system/${{ parameters.service }} && sudo systemctl daemon-reload'
+              script: 'sudo mv -f ${{ parameters.servicePath }} /etc/systemd/system/${{ parameters.service }} && sudo systemctl daemon-reload'
           - task: Bash@3
             displayName: 'Start the service'
             inputs:

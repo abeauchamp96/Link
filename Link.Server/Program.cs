@@ -5,12 +5,14 @@ using Link.Bot.Extensions;
 using Link.Discord.Client.Extensions;
 using Link.Server.Extensions;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.ConfigureAppSettings()
+    .ConfigureCertificate()
     .UseSystemd();
 
 ConfigureServices(builder);

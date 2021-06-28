@@ -29,7 +29,7 @@ jobs:
             displayName: 'Stop the service'
             inputs:
               targetType: inline
-              script: 'test -f /etc/systemd/system/${{ parameters.service }} && sudo systemctl stop ${{ parameters.service }}'
+              script: test -f /etc/systemd/system/${{ parameters.service }} && sudo systemctl stop ${{ parameters.service }}
           - task: Bash@3
             displayName: 'Extract the artifact'
             inputs:

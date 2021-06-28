@@ -52,4 +52,4 @@ jobs:
             displayName: 'Start the service'
             inputs:
               targetType: inline
-              script: 'sudo systemctl --quiet enable ${{ parameters.service }} && sudo start ${{ parameters.service }}'
+              script: 'sudo systemctl --quiet enable ${{ parameters.service }} && sudo systemctl start ${{ parameters.service }}'

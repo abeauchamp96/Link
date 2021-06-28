@@ -12,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.ConfigureAppSettings()
-    .ConfigureCertificate()
     .UseSystemd();
 
 ConfigureServices(builder);

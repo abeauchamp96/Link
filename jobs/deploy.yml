@@ -27,6 +27,7 @@ jobs:
             artifact: ${{ parameters.artifact }}
           - task: Bash@3
             displayName: 'Stop the service'
+            continueOnError: true
             inputs:
               targetType: inline
               script: 'sudo systemctl stop ${{ parameters.service }}'

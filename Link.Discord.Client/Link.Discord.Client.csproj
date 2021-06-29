@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Link.Bot\Link.Bot.csproj" />
+    <ProjectReference Include="..\Link.Discord.Commands\Link.Discord.Commands.csproj" />
   </ItemGroup>
 
 </Project>

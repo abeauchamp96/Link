@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.Bot", "Link.Bot\Link.B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Link.Bot.Tests", "Link.Bot.Tests\Link.Bot.Tests.csproj", "{0BD80F63-11BA-47AB-9B93-03AE6143763D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Link.Discord.Commands", "Link.Discord.Commands\Link.Discord.Commands.csproj", "{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,12 +50,17 @@ Global
 		{0BD80F63-11BA-47AB-9B93-03AE6143763D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BD80F63-11BA-47AB-9B93-03AE6143763D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BD80F63-11BA-47AB-9B93-03AE6143763D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8637954E-8F4B-4DC7-90CA-367A60254DD2} = {A873B8ED-7A8A-4777-85C4-AA9118F7F4AE}
+		{59ADE12B-00F2-4E2A-BF1B-9D3AFDF232C5} = {A873B8ED-7A8A-4777-85C4-AA9118F7F4AE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DFD4300D-BA5F-45E2-97A7-1CE2FB9B81CE}

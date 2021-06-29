@@ -145,7 +145,7 @@ stages:
         - task: GitHubRelease@1
           displayName: 'Create the release'
           inputs:
-            gitHubConnection: 'Link'
+            gitHubConnection: 'Github'
             repositoryName: 'abeauchamp96/Link'
             action: create
             target: $(Build.SourceVersion)

@@ -120,3 +120,39 @@ stages:
         service: $(service)
         linkDirectory: $(linkDirectory)
         servicePath: $(Pipeline.Workspace)/$(artifact)/$(service)
+
+- stage: Release
+  pool:
+    name: 'Hyrule'
+    demands:
+      - agent.os -equals Windows_NT
+  condition: and(succeeded(), eq(variables['Build.SourceBranchName'], 'main'))
+  dependsOn:
+    - Build
+    - Package
+    - Deploy
+  displayName: 'Link release'
+  jobs:
+    - job: 'Release'
+      displayName: 'Link release'
+      variables:
+        version: 0.1.0
+        link: 'link-$(version)'
+      steps:
+        - download: current
+          displayName: 'Download the artifact'
+          artifact: $(artifact)
+        - task: GitHubRelease@1
+          displayName: 'Create the release'
+          inputs:
+            gitHubConnection: 'github'
+            repositoryName: 'abeauchamp96/Link'
+            action: create
+            target: $(Build.SourceVersion)
+            tagSource: userSpecifiedTag
+            tag: 'v$(version)'
+            title: $(link)
+            releaseNotesFilePath: '$(System.DefaultWorkingDirectory)/changelog.md'
+            assets: '$(Pipeline.Workspace)/$(artifact)/$(zippedArtifact)'
+            changeLogCompareToRelease: 'lastFullRelease'
+            changeLogType: 'commitBased'

@@ -1,0 +1,55 @@
+parameters:
+  - name: artifact
+    type: string
+  - name: environment
+    type: string
+  - name: zippedArtifact
+    type: string
+  - name: service
+    type: string
+  - name: linkDirectory
+    type: string
+  - name: servicePath
+    type: string
+
+jobs:
+  - deployment: DeployLink
+    displayName: 'Deploy Link'
+    pool:
+      name: 'Hyrule'
+      demands:
+        - agent.os -equals Linux
+    environment: ${{ parameters.environment }}
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            displayName: 'Download the artifact'
+            artifact: ${{ parameters.artifact }}
+          - task: Bash@3
+            displayName: 'Stop the service'
+            continueOnError: true
+            inputs:
+              targetType: inline
+              script: 'sudo systemctl stop ${{ parameters.service }}'
+          - task: Bash@3
+            displayName: 'Extract the artifact'
+            inputs:
+              targetType: inline
+              script: 'mkdir -p ${{ parameters.linkDirectory }} && tar -zxf ${{ parameters.zippedArtifact }} -C ${{ parameters.linkDirectory }} && rm ${{ parameters.zippedArtifact }}'
+          - task: Bash@3
+            displayName: 'Transform project as executable'
+            inputs:
+              targetType: inline
+              script: 'chmod u+x ${{ parameters.linkDirectory }}/Link.Server'
+          - task: Bash@3
+            displayName: 'Move the service'
+            inputs:
+              targetType: inline
+              script: 'sudo mv -f ${{ parameters.servicePath }} /etc/systemd/system/${{ parameters.service }} && sudo systemctl daemon-reload'
+          - task: Bash@3
+            displayName: 'Start the service'
+            inputs:
+              targetType: inline
+              script: 'sudo systemctl --quiet enable ${{ parameters.service }} && sudo systemctl start ${{ parameters.service }}'

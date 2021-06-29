@@ -7,8 +7,8 @@
 
 <div align="center">
 
-  ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/pulsewave/Link/1/master?label=main%20build%20&logo=main%20build)
-  ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/pulsewave/Link/1/develop?label=develop%20build%20&logo=develop%20build)
+  ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/pulsewave/Link/4/master?label=main%20build%20&logo=main%20build)
+  ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/pulsewave/Link/4/develop?label=develop%20build%20&logo=develop%20build)
   ![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/abeauchamp96/Link?color=teal&sort=semver&include_prereleases)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./license.md)
 

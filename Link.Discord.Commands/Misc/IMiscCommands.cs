@@ -5,6 +5,7 @@ namespace Link.Discord.Commands.Misc
 {
     public interface IMiscCommands
     {
-        string Echo(string message);
+        string Echo(string? message);
+        string Say(string? message);
     }
 }

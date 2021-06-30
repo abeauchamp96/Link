@@ -5,7 +5,7 @@ using System;
 
 namespace Link.Bot.Settings
 {
-    public record BotSettings
+    public sealed record BotSettings
     {
         public string Name { get; init; } = string.Empty;
         public string Version { get; init; } = string.Empty;

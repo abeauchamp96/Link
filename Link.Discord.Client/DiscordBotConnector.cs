@@ -5,7 +5,8 @@ using Discord;
 using Discord.WebSocket;
 using Link.Bot;
 using Link.Bot.Settings;
-using Link.Discord.Client.Settings;
+using Link.Discord.Commands;
+using Link.Discord.Utility.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
@@ -16,13 +17,20 @@ namespace Link.Discord.Client
     internal sealed class DiscordBotConnector : IBotConnector, IDisposable
     {
         private readonly DiscordSocketClient discordSocketClient;
+        private readonly IDiscordCommandsInitializer discordCommandsInitializer;
         private readonly ILogger<DiscordBotConnector> logger;
         private readonly DiscordSettings discordSettings;
         private readonly BotSettings botSettings;
 
-        public DiscordBotConnector(DiscordSocketClient discordSocketClient, ILogger<DiscordBotConnector> logger, IOptions<DiscordSettings> discordSettings, IOptions<BotSettings> botSettings)
+        public DiscordBotConnector(
+            DiscordSocketClient discordSocketClient,
+            IDiscordCommandsInitializer discordCommandsInitializer,
+            ILogger<DiscordBotConnector> logger,
+            IOptions<DiscordSettings> discordSettings,
+            IOptions<BotSettings> botSettings)
         {
             this.discordSocketClient = discordSocketClient;
+            this.discordCommandsInitializer = discordCommandsInitializer;
             this.logger = logger;
             this.discordSettings = discordSettings.Value;
             this.botSettings = botSettings.Value;
@@ -43,6 +51,8 @@ namespace Link.Discord.Client
 
         public async Task ConnectAsync()
         {
+            await this.discordCommandsInitializer.InitializeAsync().ConfigureAwait(false);
+
             if (this.discordSocketClient.LoginState == LoginState.LoggedOut)
                 await this.discordSocketClient.LoginAsync(TokenType.Bot, this.discordSettings.Token).ConfigureAwait(false);
 
@@ -64,6 +74,7 @@ namespace Link.Discord.Client
             this.discordSocketClient.Ready -= this.Ready;
             this.discordSocketClient.Connected -= this.Connected;
             this.discordSocketClient.Disconnected -= this.Disconnected;
+            this.discordCommandsInitializer.Uninitialized();
         }
 
         private async Task Ready()

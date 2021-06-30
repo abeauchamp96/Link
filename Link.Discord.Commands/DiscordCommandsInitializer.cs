@@ -5,6 +5,7 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using Link.Discord.Commands.Bot;
+using Link.Discord.Commands.Misc;
 using Link.Discord.Utility.Settings;
 using Microsoft.Extensions.Options;
 using System;
@@ -36,6 +37,7 @@ namespace Link.Discord.Commands
             this.discordSocketClient.MessageReceived += this.MessageReceivedAsync;
 
             await this.commandService.AddModuleAsync<BotModule>(this.serviceProvider);
+            await this.commandService.AddModuleAsync<MiscModule>(this.serviceProvider);
         }
 
         public void Uninitialized()

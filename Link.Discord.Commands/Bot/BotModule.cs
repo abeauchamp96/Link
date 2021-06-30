@@ -18,7 +18,7 @@ namespace Link.Discord.Commands.Bot
         [Command("ping")]
         [Alias("pong", "latency")]
         [Summary("Ping the server to retrieve the latency")]
-        public Task PingAsync() 
+        public Task PingAsync()
             => this.ReplyAsync(this.botCommands.Ping(this.Context.Client.Latency));
     }
 }

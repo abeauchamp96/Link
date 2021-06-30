@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
-namespace Link.Discord.Commands
+namespace Link.Discord.Utility
 {
-    internal static class EmojiUnicode
+    public static class EmojiUnicode
     {
         public static string Fire => "\U0001F525";
         public static string Grinning => "\U0001F600";

@@ -13,6 +13,7 @@ trigger:
 - main
 
 variables:
+  environment: 'Develop'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
     environment: Staging
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:

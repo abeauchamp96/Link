@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using FluentAssertions;
+using Link.Discord.Utility;
 using Xunit;
 
 namespace Link.Discord.Commands.Bot

@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using Link.Discord.Commands.Bot;
+using Link.Discord.Commands.Misc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.CompilerServices;
 
@@ -14,7 +15,8 @@ namespace Link.Discord.Commands
         {
             return services
                 .AddSingleton<IDiscordCommandsInitializer, DiscordCommandsInitializer>()
-                .AddTransient<IBotCommands, BotCommands>();
+                .AddTransient<IBotCommands, BotCommands>()
+                .AddTransient<IMiscCommands, MiscCommands>();
         }
     }
 }

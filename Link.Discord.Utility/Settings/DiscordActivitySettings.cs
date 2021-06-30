@@ -3,7 +3,7 @@
 
 using Discord;
 
-namespace Link.Discord.Client.Settings
+namespace Link.Discord.Utility.Settings
 {
     public sealed record DiscordActivitySettings
     {

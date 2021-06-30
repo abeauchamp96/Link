@@ -7,7 +7,7 @@ namespace Link.Discord.Commands
 {
     public interface IDiscordCommandsInitializer
     {
-        Task Initialize();
-        Task Uninitialized();
+        Task InitializeAsync();
+        void Uninitialized();
     }
 }

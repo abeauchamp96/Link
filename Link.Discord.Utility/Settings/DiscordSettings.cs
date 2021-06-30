@@ -4,7 +4,7 @@
 using Discord;
 using Discord.Commands;
 
-namespace Link.Discord.Client.Settings
+namespace Link.Discord.Utility.Settings
 {
     public sealed record DiscordSettings
     {
@@ -15,5 +15,6 @@ namespace Link.Discord.Client.Settings
         public char ArgumentSeparator { get; init; }
         public RunMode RunMode { get; init; }
         public DiscordActivitySettings? Activity { get; init; }
+        public char Prefix { get; init; }
     }
 }

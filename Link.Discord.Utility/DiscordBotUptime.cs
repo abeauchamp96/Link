@@ -4,9 +4,9 @@
 using Pandora.Utility;
 using System;
 
-namespace Link.Discord.Client
+namespace Link.Discord.Utility
 {
-    internal sealed record DiscordBotUptime : IUptime<DiscordBotUptime>
+    public sealed record DiscordBotUptime : IUptime<DiscordBotUptime>
     {
         public DateTimeOffset ElapsedDateTime { get; } = DateTimeOffset.Now;
     }

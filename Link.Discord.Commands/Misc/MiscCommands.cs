@@ -12,7 +12,7 @@ namespace Link.Discord.Commands.Misc
             if (string.IsNullOrEmpty(message))
                 return $"Where the message? {EmojiUnicode.Thinking}";
 
-            return message;
+            return $"{Unicode.ZeroWidthSpace}{message}";
         }
 
         public string Say(string? message)
@@ -20,7 +20,7 @@ namespace Link.Discord.Commands.Misc
             if (string.IsNullOrEmpty(message))
                 return $"What are you trying to say? {EmojiUnicode.Thinking}";
 
-            return message;
+            return $"{Unicode.ZeroWidthSpace}{message}";
         }
     }
 }

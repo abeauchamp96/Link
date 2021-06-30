@@ -31,7 +31,7 @@ namespace Link.Discord.Commands.Misc
 
             var repeatedMessage = this.miscCommands.Echo(message);
 
-            repeatedMessage.Should().Be(message);
+            repeatedMessage.Should().Be($"{Unicode.ZeroWidthSpace}{message}");
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace Link.Discord.Commands.Misc
 
             var repeatedMessage = this.miscCommands.Say(message);
 
-            repeatedMessage.Should().Be(message);
+            repeatedMessage.Should().Be($"{Unicode.ZeroWidthSpace}{message}");
         }
     }
 }

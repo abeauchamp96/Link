@@ -25,6 +25,14 @@ namespace Link.Discord.Commands.Misc
         }
 
         [Fact]
+        public void Echo_ShouldReturnAnErrorMessage_WhenMessageOnlyHaveWhiteSpace()
+        {
+            var repeatedMessage = this.miscCommands.Echo(" ");
+
+            repeatedMessage.Should().Be($"Where the message? {EmojiUnicode.Thinking}");
+        }
+
+        [Fact]
         public void Echo_ShouldReturnTheMessage_WhenTheMessageIsNotEmpty()
         {
             const string message = "Hola, World!";

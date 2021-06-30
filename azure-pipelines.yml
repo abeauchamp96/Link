@@ -13,11 +13,12 @@ trigger:
 - main
 
 variables:
-  environment: 'Develop'
   ${{ if eq(variables['Build.SourceBranchName'], 'develop')}}:
     environment: Staging
   ${{ if eq(variables['Build.SourceBranchName'], 'main')}}:
     environment: Production
+  ${{ if eq(variables['Build.SourceBranchName'], 'merge')}}:
+    environment: 'Develop'
   artifact: 'link'
   configuration: '--configuration Release'
   linkDirectory: $[lower(format('/home/{0}/{1}/{2}', variables['user'], variables['artifact'], variables['environment']))]

@@ -9,7 +9,7 @@ namespace Link.Discord.Commands.Misc
     {
         public string Echo(string message)
         {
-            if (string.IsNullOrEmpty(message))
+            if (string.IsNullOrEmpty(message.Trim()))
                 return $"Where the message? {EmojiUnicode.Thinking}";
 
             return message;

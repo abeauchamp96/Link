@@ -19,5 +19,14 @@ namespace Link.Discord.Commands.Misc
             var echoMessage = this.miscCommands.Echo(message);
             return this.ReplyAsync(echoMessage);
         }
+
+        [Command("flip")]
+        [Alias("coin")]
+        [Summary("Flip a coin")]
+        public Task FlipAsync()
+        {
+            var flippedCoin = this.miscCommands.Flip();
+            return this.ReplyAsync(flippedCoin);
+        }
     }
 }

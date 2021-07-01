@@ -7,5 +7,6 @@ namespace Link.Discord.Commands.Misc
     {
         string Echo(string? message);
         string Say(string? message);
+        string Flip();
     }
 }

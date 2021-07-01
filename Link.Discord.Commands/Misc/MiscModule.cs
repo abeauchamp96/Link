@@ -29,5 +29,14 @@ namespace Link.Discord.Commands.Misc
             await this.Context.Message.DeleteAsync().ConfigureAwait(false);
             await this.ReplyAsync(messageToSay);
         }
+
+        [Command("flip")]
+        [Alias("coin")]
+        [Summary("Flip a coin")]
+        public Task FlipAsync()
+        {
+            var flippedCoin = this.miscCommands.Flip();
+            return this.ReplyAsync(flippedCoin);
+        }
     }
 }

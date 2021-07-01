@@ -29,21 +29,31 @@ namespace Link.Discord.Commands.Misc
         }
 
         [Fact]
-        public void Echo_ShouldReturnAnErrorMessage_WhenMessageOnlyHaveWhiteSpace()
-        {
-            var repeatedMessage = this.miscCommands.Echo(" ");
-
-            repeatedMessage.Should().Be($"Where the message? {EmojiUnicode.Thinking}");
-        }
-
-        [Fact]
         public void Echo_ShouldReturnTheMessage_WhenTheMessageIsNotEmpty()
         {
             const string message = "Hola, World!";
 
             var repeatedMessage = this.miscCommands.Echo(message);
 
-            repeatedMessage.Should().Be(message);
+            repeatedMessage.Should().Be($"{Unicode.ZeroWidthSpace}{message}");
+        }
+
+        [Fact]
+        public void Say_ShouldReturnAnErrorMessage_WhenMessageIsEmpty()
+        {
+            var repeatedMessage = this.miscCommands.Say(string.Empty);
+
+            repeatedMessage.Should().Be($"What are you trying to say? {EmojiUnicode.Thinking}");
+        }
+
+        [Fact]
+        public void Say_ShouldReturnTheMessage_WhenTheMessageIsNotEmpty()
+        {
+            const string message = "Hola, World!";
+
+            var repeatedMessage = this.miscCommands.Say(message);
+
+            repeatedMessage.Should().Be($"{Unicode.ZeroWidthSpace}{message}");
         }
 
         [Fact]

@@ -13,12 +13,20 @@ namespace Link.Discord.Commands.Misc
         public MiscCommands(IRandomHelper randomHelper)
             => this.randomHelper = randomHelper;
 
-        public string Echo(string message)
+        public string Echo(string? message)
         {
-            if (string.IsNullOrEmpty(message.Trim()))
+            if (string.IsNullOrEmpty(message))
                 return $"Where the message? {EmojiUnicode.Thinking}";
 
-            return message;
+            return $"{Unicode.ZeroWidthSpace}{message}";
+        }
+
+        public string Say(string? message)
+        {
+            if (string.IsNullOrEmpty(message))
+                return $"What are you trying to say? {EmojiUnicode.Thinking}";
+
+            return $"{Unicode.ZeroWidthSpace}{message}";
         }
 
         public string Flip()

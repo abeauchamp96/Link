@@ -14,10 +14,20 @@ namespace Link.Discord.Commands.Misc
 
         [Command("echo")]
         [Summary("Repeat the message")]
-        public Task EchoAsync([Remainder]string message)
+        public Task EchoAsync([Remainder] string? message = null)
         {
             var echoMessage = this.miscCommands.Echo(message);
             return this.ReplyAsync(echoMessage);
+        }
+
+        [Command("say")]
+        [Summary("The bot say something and delete your message")]
+        public async Task SayAsync([Remainder] string? message = null)
+        {
+            var messageToSay = this.miscCommands.Say(message);
+
+            await this.Context.Message.DeleteAsync().ConfigureAwait(false);
+            await this.ReplyAsync(messageToSay);
         }
 
         [Command("flip")]

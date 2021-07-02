@@ -75,5 +75,21 @@ namespace Link.Discord.Commands.Misc
 
             message.Should().Be("You flipped a coin: tails");
         }
+
+        [Fact]
+        public void Lenny_ShouldReturnALennyFace()
+        {
+            var lenny = this.miscCommands.Lenny();
+
+            lenny.Should().Be("( ͡° ͜ʖ ͡°)");
+        }
+
+        [Fact]
+        public void Running_ShouldReturnARunningFace()
+        {
+            var running = this.miscCommands.Running();
+
+            running.Should().Be("ᕕ( ᐛ )ᕗ");
+        }
     }
 }

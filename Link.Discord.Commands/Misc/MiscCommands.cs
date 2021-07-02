@@ -37,5 +37,9 @@ namespace Link.Discord.Commands.Misc
 
             return $"You flipped a coin: {flippedCoin}";
         }
+
+        public string Lenny() => "( ͡° ͜ʖ ͡°)";
+
+        public string Running() => "ᕕ( ᐛ )ᕗ";
     }
 }

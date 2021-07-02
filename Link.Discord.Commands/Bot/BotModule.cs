@@ -16,6 +16,12 @@ namespace Link.Discord.Commands.Bot
             this.botCommands = botCommands;
         }
 
+        [Command("info")]
+        [Alias("bot")]
+        [Summary("Gives the information about the bot")]
+        public Task InfoAsync()
+            => this.ReplyAsync(embed: this.botCommands.Info());
+
         [Command("ping")]
         [Alias("pong", "latency")]
         [Summary("Ping the server to retrieve the latency")]

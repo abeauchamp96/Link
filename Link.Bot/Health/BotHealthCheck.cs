@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Link.Bot.Health
 {
-    internal class BotHealthCheck : IHealthCheck
+    internal sealed class BotHealthCheck : IHealthCheck
     {
         private readonly IBotConnector botConnector;
         private readonly BotSettings botSettings;

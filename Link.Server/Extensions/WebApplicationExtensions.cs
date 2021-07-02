@@ -7,7 +7,7 @@ using Pandora.Utility.Health;
 
 namespace Link.Server.Extensions
 {
-    public static class WebApplicationExtensions
+    internal static class WebApplicationExtensions
     {
         public static IApplicationBuilder UseAllHealthCheck(this IApplicationBuilder app)
             => app.UseHealthChecks("/health", CreateHealthCheckOptions("all"));

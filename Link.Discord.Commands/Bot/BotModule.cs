@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Alexandre Beauchamp. All rights reserved.
 // Licensed under the MIT license.
 
+using Discord;
 using Discord.Commands;
 using System.Threading.Tasks;
 
@@ -20,5 +21,13 @@ namespace Link.Discord.Commands.Bot
         [Summary("Ping the server to retrieve the latency")]
         public Task PingAsync()
             => this.ReplyAsync(this.botCommands.Ping(this.Context.Client.Latency));
+
+        [Command("uptime")]
+        [Summary("Gives uptime of the bot")]
+        public Task UptimeAsync()
+        {
+            var formattedUptime = Format.Code(this.botCommands.Uptime());
+            return this.ReplyAsync(formattedUptime);
+        }
     }
 }

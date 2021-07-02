@@ -5,6 +5,7 @@ using Link.Discord.Commands.Bot;
 using Link.Discord.Commands.Helpers;
 using Link.Discord.Commands.Misc;
 using Microsoft.Extensions.DependencyInjection;
+using Pandora.Utility;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Link.Discord.Commands.Tests")]
@@ -18,7 +19,8 @@ namespace Link.Discord.Commands
                 .AddSingleton<IDiscordCommandsInitializer, DiscordCommandsInitializer>()
                 .AddTransient<IBotCommands, BotCommands>()
                 .AddTransient<IMiscCommands, MiscCommands>()
-                .AddSingleton<IRandomHelper, RandomHelper>();
+                .AddSingleton<IRandomHelper, RandomHelper>()
+                .AddHelpers();
         }
     }
 }

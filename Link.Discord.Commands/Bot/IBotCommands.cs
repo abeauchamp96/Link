@@ -6,5 +6,6 @@ namespace Link.Discord.Commands.Bot
     public interface IBotCommands
     {
         string Ping(int latency);
+        string Uptime();
     }
 }

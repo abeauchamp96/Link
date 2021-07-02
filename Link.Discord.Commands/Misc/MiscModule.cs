@@ -38,5 +38,9 @@ namespace Link.Discord.Commands.Misc
             var flippedCoin = this.miscCommands.Flip();
             return this.ReplyAsync(flippedCoin);
         }
+
+        [Command("lenny")]
+        [Summary("( ͡° ͜ʖ ͡°)")]
+        public Task LennyAsync() => this.ReplyAsync(this.miscCommands.Lenny());
     }
 }

@@ -10,11 +10,18 @@ namespace Link.Discord.Commands.Bot
     public sealed class BotModule : ModuleBase<SocketCommandContext>
     {
         private readonly IBotCommands botCommands;
+        private readonly CommandService commandService;
 
-        public BotModule(IBotCommands botCommands)
+        public BotModule(IBotCommands botCommands, CommandService commandService)
         {
             this.botCommands = botCommands;
+            this.commandService = commandService;
         }
+
+        [Command("help")]
+        [Summary("Gives information about a command or gives the command list")]
+        public Task HelpAsync(string? commandName = null)
+            => this.ReplyAsync(embed: this.botCommands.Help(commandName, this.commandService.Commands));
 
         [Command("info")]
         [Alias("bot")]

@@ -5,6 +5,7 @@ using Discord;
 using FluentAssertions;
 using Link.Bot.Settings;
 using Link.Discord.Utility;
+using Link.Discord.Utility.Settings;
 using Microsoft.Extensions.Options;
 using Moq;
 using Pandora.Utility;
@@ -34,10 +35,13 @@ namespace Link.Discord.Commands.Bot
             Mock<IOptions<BotSettings>> botSettingsMock = new();
             botSettingsMock.SetupGet(b => b.Value).Returns(this.botSettings);
 
+            Mock<IOptions<DiscordSettings>> discordSettingsMock = new();
+
             this.botCommands = new BotCommands(
                 this.uptimeRetrieverMock.Object,
                 this.dateTimeOffsetHelperMock.Object,
-                botSettingsMock.Object);
+                botSettingsMock.Object,
+                discordSettingsMock.Object);
         }
 
         [Fact]

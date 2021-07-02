@@ -28,19 +28,7 @@
 
 ## About <a name = "about"></a>
 
-Automa is a general discord bot where contains some misc commands, to remind about something and event notify a new video from youtube. It deployed on raspberry pi 4 and it's written in C# with the latest .NET release.
-
-## Getting Started <a name = "getting_started"></a>
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-Make sure you have installed the latest [.NET SDK](https://dotnet.microsoft.com/download/dotnet/5.0).
-
-### Installing
-
-*Work in progress*
+Link is a general discord bot where contains some misc commands. It deployed on raspberry pi 4 and it's written in C# with the latest .NET release.
 
 ## Authors <a name = "authors"></a>
 

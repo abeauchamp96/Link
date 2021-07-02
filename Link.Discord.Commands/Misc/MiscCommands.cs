@@ -39,5 +39,7 @@ namespace Link.Discord.Commands.Misc
         }
 
         public string Lenny() => "( ͡° ͜ʖ ͡°)";
+
+        public string Running() => "ᕕ( ᐛ )ᕗ";
     }
 }

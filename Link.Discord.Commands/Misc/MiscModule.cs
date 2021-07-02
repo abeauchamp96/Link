@@ -41,6 +41,18 @@ namespace Link.Discord.Commands.Misc
 
         [Command("lenny")]
         [Summary("( ͡° ͜ʖ ͡°)")]
-        public Task LennyAsync() => this.ReplyAsync(this.miscCommands.Lenny());
+        public async Task LennyAsync()
+        {
+            await this.Context.Message.DeleteAsync().ConfigureAwait(false);
+            await this.ReplyAsync(this.miscCommands.Lenny());
+        }
+
+        [Command("running")]
+        [Summary("ᕕ( ᐛ )ᕗ")]
+        public async Task RunningAsync()
+        {
+            await this.Context.Message.DeleteAsync().ConfigureAwait(false);
+            await this.ReplyAsync(this.miscCommands.Running());
+        }
     }
 }

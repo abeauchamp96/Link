@@ -83,5 +83,13 @@ namespace Link.Discord.Commands.Misc
 
             lenny.Should().Be("( ͡° ͜ʖ ͡°)");
         }
+
+        [Fact]
+        public void Running_ShouldReturnARunningFace()
+        {
+            var running = this.miscCommands.Running();
+
+            running.Should().Be("ᕕ( ᐛ )ᕗ");
+        }
     }
 }

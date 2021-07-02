@@ -9,5 +9,6 @@ namespace Link.Discord.Commands.Misc
         string Say(string? message);
         string Flip();
         string Lenny();
+        string Running();
     }
 }
